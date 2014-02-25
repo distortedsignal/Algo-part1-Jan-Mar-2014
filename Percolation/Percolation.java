@@ -33,7 +33,7 @@ public class Percolation {
      */
     public void open(int i, int j) throws IndexOutOfBoundsException {
         validateArgs(i,j);
-        grid[i][j].open();
+        grid[i-1][j-1].open();
         
     }
     
@@ -45,7 +45,7 @@ public class Percolation {
      */
     public boolean isOpen(int i, int j) throws IndexOutOfBoundsException {
         validateArgs(i,j);
-        return grid[i][j].isOpen();
+        return grid[i-1][j-1].isOpen();
     }
     
     /**
@@ -56,7 +56,7 @@ public class Percolation {
      */
     public boolean isFull(int i, int j) throws IndexOutOfBoundsException {
         validateArgs(i,j);
-        return !grid[i][j].isOpen();
+        return !grid[i-1][j-1].isOpen();
     }
     
     /**
@@ -71,11 +71,13 @@ public class Percolation {
         if(0 >= i) {
             throw new IndexOutOfBoundsException("First argument (" + i + ") is less than 1.");
         } else if(i >= this.size) {
-            throw new IndexOutOfBoundsException("First argument (" + i + ") is larger than the given size.");
+            throw new IndexOutOfBoundsException("First argument (" + i + ") is larger than the "
+                    + "given size.");
         } else if(0 >= j) {
             throw new IndexOutOfBoundsException("Second argument (" + j + ") is less than 1.");
         } else if(j >= this.size) {
-            throw new IndexOutOfBoundsException("Second argument (" + j + ") is larger than the given size.");
+            throw new IndexOutOfBoundsException("Second argument (" + j + ") is larger than the "
+                    + "given size.");
         }
     }
     
