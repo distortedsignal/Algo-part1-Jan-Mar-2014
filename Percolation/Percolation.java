@@ -7,6 +7,8 @@ public class Percolation {
     
     private Site[][] grid;
     private int size;
+    private Site top;
+    private Site bottom;
     
     /**
      * Create an N-by-N grid with all sites blocked
@@ -24,6 +26,10 @@ public class Percolation {
                 counter++;
             }
         }
+        
+        top = new Site(counter, true);
+        counter++;
+        bottom = new Site(counter, true);
     }
     
     /**
@@ -34,6 +40,7 @@ public class Percolation {
     public void open(int i, int j) throws IndexOutOfBoundsException {
         validateArgs(i,j);
         grid[i-1][j-1].open();
+        
         
     }
     
