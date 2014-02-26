@@ -1,5 +1,7 @@
 Organization of percolate object:
 
-[ 1 | 4 | 7 ]
-[ 2 | 5 | 8 ]
-[ 3 | 6 | 9 ]
+[ Col1 | Col2 | Col3 ]
+[ :--: | :--: | :--: ]
+[  1   |  4   |  7   ]
+[  2   |  5   |  8   ]
+[  3   |  6   |  9   ]
