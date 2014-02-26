@@ -3,7 +3,12 @@
  * 
  * @author "Tom Kelley"
  */
+
+import java.lang.Math;
+
 public class PercolationStats {
+    
+    int[] percAfterOpens = {};
     
     /**
      * Perform T independent computational experiments on an N-by-N grid.
@@ -15,6 +20,30 @@ public class PercolationStats {
             throw new IllegalArgumentException("Neither N (" + N + ") nor T ("
                     + T + ") can be negative.");
         }
+        int counter = 0, rand1, rand2;
+        
+        for(int i = 0; i < T; i++) {
+            Percolation p = new Percolation(N);
+            while(!p.percolates()) {
+                //TODO FIX THIS BECAUSE IT'S AWFUL
+                while(true) {
+                    rand1 = (int)Math.ceil(Math.random() * (N-1)) + 1;
+                    rand2 = (int)Math.ceil(Math.random() * (N-1)) + 1;
+
+                    if(p.isFull(rand1, rand2)) {
+                        p.open(rand1, rand2);
+                        break;
+                    }
+                }
+                counter++;
+            }
+            
+            int[] newAfterOpens = new int[percAfterOpens.length + 1];
+            System.arraycopy(percAfterOpens, 0, newAfterOpens, 0, 
+                    percAfterOpens.length);
+            newAfterOpens[percAfterOpens.length] = counter;
+            percAfterOpens = newAfterOpens;
+        }
     }
     
     /**
@@ -22,7 +51,8 @@ public class PercolationStats {
      * @return 
      */
     public double mean() {
-        return 0.0;
+        int sum = sum(percAfterOpens);
+        return (double)sum/(double)percAfterOpens.length;
     }
     
     /**
@@ -30,7 +60,28 @@ public class PercolationStats {
      * @return 
      */
     public double stddev() {
-        return 0.0;
+        double mean = mean();
+        double[] sqDiffArr = new double[percAfterOpens.length];
+        for(int i = 0; i < percAfterOpens.length; i++) {
+            sqDiffArr[i] = Math.pow((double)percAfterOpens[i] - mean, 2);
+        }
+        return Math.sqrt(sum(sqDiffArr)/(sqDiffArr.length-1));
+    }
+    
+    private int sum(final int[] a) {
+        int s = 0;
+        for(int i = 0; i < a.length; i++) {
+            s += a[i];
+        }
+        return s;
+    }
+    
+    private double sum(final double[] a) {
+        double s = 0;
+        for(int i = 0; i < a.length; i++) {
+           s += a[i]; 
+        }
+        return s;
     }
     
     /**
@@ -38,7 +89,7 @@ public class PercolationStats {
      * @return 
      */
     public double confidenceLo() {
-        return 0.0;
+        return mean() - halfConfidenceRange();
     }
     
     /**
@@ -46,7 +97,11 @@ public class PercolationStats {
      * @return 
      */
     public double confidenceHi() {
-        return 0.0;
+        return mean() + halfConfidenceRange();
+    }
+    
+    private double halfConfidenceRange() {
+        return (1.96 * stddev()) / Math.sqrt((double)percAfterOpens.length);
     }
     
     /**
