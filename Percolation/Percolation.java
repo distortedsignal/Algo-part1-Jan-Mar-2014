@@ -40,7 +40,6 @@ public class Percolation {
     public void open(int i, int j) throws IndexOutOfBoundsException {
         validateArgs(i,j);
         grid[i-1][j-1].open();
-        //TODO Things
         union(i-1, j-1, i-2, j-2);
         union(i-1, j-1, i-2, j);
         union(i-1, j-1, i, j-2);
@@ -74,8 +73,8 @@ public class Percolation {
      * @return True if the system percolates, false if the system does not percolate
      */
     public boolean percolates() {
-        //TODO Things
-        return true;
+        //TODO Write algorithm for checking that top is connected to bottom
+        return false;
     }
     
     private void validateArgs(int i, int j) throws IndexOutOfBoundsException {
@@ -99,13 +98,14 @@ public class Percolation {
             if(k < 1) {
                 unionSites(grid[i][j], top);
             } else if(k > size) {
-                //TODO Union to this.bottom
+                unionSites(grid[i][j], bottom);
             } else {
                 //TODO Print that this is on a side
             }
+            return;
         }
         if (grid[k][l].isOpen()) {
-            //TODO Union things
+            unionSites(grid[i][j], grid[k][l]);
         }
     }
     
