@@ -1,5 +1,5 @@
 /**
- * A class for Algs '14 to satisfy the Percolation assignment
+ * A Percolation class for Algs '14 to satisfy the Percolation assignment
  * 
  * @author "Tom Kelley"
  */
