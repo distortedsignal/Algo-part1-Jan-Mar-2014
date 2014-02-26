@@ -15,7 +15,7 @@ public class Percolation {
      * 
      * @param size The size of one side of the grid to generate for this run
      */
-    public Percolation(int size) {
+    public Percolation(final int size) {
         this.size = size;
         grid = new Site[size][size];
         int counter = 0;
@@ -37,7 +37,7 @@ public class Percolation {
      * @param i y coordinate of site
      * @param j x coordinate of site
      */
-    public void open(int i, int j) throws IndexOutOfBoundsException {
+    public void open(final int i, final int j) throws IndexOutOfBoundsException {
         validateArgs(i,j);
         grid[i-1][j-1].open();
         union(i-1, j-1, i-2, j-2);
@@ -52,7 +52,7 @@ public class Percolation {
      * @param j x coordinate of site
      * @return If the site is open, return true; else return false
      */
-    public boolean isOpen(int i, int j) throws IndexOutOfBoundsException {
+    public boolean isOpen(final int i, final int j) throws IndexOutOfBoundsException {
         validateArgs(i,j);
         return grid[i-1][j-1].isOpen();
     }
@@ -63,7 +63,7 @@ public class Percolation {
      * @param j x coordinate of site
      * @return If the site is open, return false; else return true
      */
-    public boolean isFull(int i, int j) throws IndexOutOfBoundsException {
+    public boolean isFull(final int i, final int j) throws IndexOutOfBoundsException {
         validateArgs(i,j);
         return !grid[i-1][j-1].isOpen();
     }
@@ -76,7 +76,7 @@ public class Percolation {
         return top.getIndex() == bottom.getIndex();
     }
     
-    private void validateArgs(int i, int j) throws IndexOutOfBoundsException {
+    private void validateArgs(final int i, final int j) throws IndexOutOfBoundsException {
         if(0 >= i) {
             throw new IndexOutOfBoundsException("First argument (" + i + ") is less than 1.");
         } else if(i >= this.size) {
@@ -90,7 +90,7 @@ public class Percolation {
         }
     }
     
-    private void union(int i, int j, int k, int l) {
+    private void union(final int i, final int j, final int k, final int l) {
         try {
             validateArgs(k, l);
         } catch(IndexOutOfBoundsException ex) {
@@ -108,7 +108,7 @@ public class Percolation {
         }
     }
     
-    private void unionSites(Site one, Site two) {
+    private void unionSites(final Site one, final Site two) {
         //TODO Make this not suck
         int siteOneIndex = one.getIndex();
         
@@ -130,7 +130,7 @@ public class Percolation {
          * @param openIndex The index of the site
          * @param isOpen The open status of the site
          */
-        public Site(int openIndex, boolean isOpen) {
+        public Site(final int openIndex, final boolean isOpen) {
             open = isOpen;
             index = openIndex;
         }
@@ -154,7 +154,7 @@ public class Percolation {
             return index;
         }
         
-        public void setIndex(int index) {
+        public void setIndex(final int index) {
             this.index = index;
         }
     }

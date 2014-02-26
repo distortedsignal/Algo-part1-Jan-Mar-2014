@@ -10,7 +10,7 @@ public class PercolationStats {
      * @param N
      * @param T 
      */
-    public PercolationStats(int N, int T) {
+    public PercolationStats(final int N, final int T) {
         if(N <= 0 || T <= 0) {
             throw new IllegalArgumentException("Neither N (" + N + ") nor T ("
                     + T + ") can be negative.");
@@ -53,7 +53,7 @@ public class PercolationStats {
      * Test client.
      * @param main 
      */
-    public static void main(String[] main) {
+    public static void main(final String[] main) {
         
     }
 }
