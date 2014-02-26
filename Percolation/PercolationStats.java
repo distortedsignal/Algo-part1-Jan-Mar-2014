@@ -11,7 +11,10 @@ public class PercolationStats {
      * @param T 
      */
     public PercolationStats(int N, int T) {
-        
+        if(N <= 0 || T <= 0) {
+            throw new IllegalArgumentException("Neither N (" + N + ") nor T ("
+                    + T + ") can be negative.");
+        }
     }
     
     /**
