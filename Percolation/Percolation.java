@@ -73,8 +73,7 @@ public class Percolation {
      * @return True if the system percolates, false if the system does not percolate
      */
     public boolean percolates() {
-        //TODO Write algorithm for checking that top is connected to bottom
-        return false;
+        return top.getIndex() == bottom.getIndex();
     }
     
     private void validateArgs(int i, int j) throws IndexOutOfBoundsException {
@@ -110,7 +109,16 @@ public class Percolation {
     }
     
     private void unionSites(Site one, Site two) {
+        //TODO Make this not suck
+        int siteOneIndex = one.getIndex();
         
+        for(int i = 0; i < size; i++) {
+            for(int j = 0; j < size; j++) {
+                if(grid[i][j].getIndex() == siteOneIndex) {
+                    grid[i][j].setIndex(two.getIndex());
+                }
+            }
+        }
     }
     
     private class Site {
