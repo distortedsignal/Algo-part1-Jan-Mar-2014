@@ -13,15 +13,15 @@ public class Percolation {
     /**
      * Create an N-by-N grid with all sites blocked
      * 
-     * @param N The size of one side of the grid to generate for this run
+     * @param size The size of one side of the grid to generate for this run
      */
-    public Percolation(int N) {
-        this.size = N;
-        grid = new Site[N][N];
+    public Percolation(int size) {
+        this.size = size;
+        grid = new Site[size][size];
         int counter = 0;
         
-        for(int i = 0; i < N; i++) {
-            for(int j = 0; j < N; j++) {
+        for(int i = 0; i < size; i++) {
+            for(int j = 0; j < size; j++) {
                 grid[i][j] = new Site(counter, false);
                 counter++;
             }
@@ -40,8 +40,11 @@ public class Percolation {
     public void open(int i, int j) throws IndexOutOfBoundsException {
         validateArgs(i,j);
         grid[i-1][j-1].open();
-        
-        
+        //TODO Things
+        union(i-1, j-1, i-2, j-2);
+        union(i-1, j-1, i-2, j);
+        union(i-1, j-1, i, j-2);
+        union(i-1, j-1, i, j);
     }
     
     /**
@@ -71,6 +74,7 @@ public class Percolation {
      * @return True if the system percolates, false if the system does not percolate
      */
     public boolean percolates() {
+        //TODO Things
         return true;
     }
     
@@ -88,6 +92,27 @@ public class Percolation {
         }
     }
     
+    private void union(int i, int j, int k, int l) {
+        try {
+            validateArgs(k, l);
+        } catch(IndexOutOfBoundsException ex) {
+            if(k < 1) {
+                unionSites(grid[i][j], top);
+            } else if(k > size) {
+                //TODO Union to this.bottom
+            } else {
+                //TODO Print that this is on a side
+            }
+        }
+        if (grid[k][l].isOpen()) {
+            //TODO Union things
+        }
+    }
+    
+    private void unionSites(Site one, Site two) {
+        
+    }
+    
     private class Site {
         private boolean open;
         private int index;
@@ -98,15 +123,15 @@ public class Percolation {
          * @param isOpen The open status of the site
          */
         public Site(int openIndex, boolean isOpen) {
-            this.open = isOpen;
-            this.index = openIndex;
+            open = isOpen;
+            index = openIndex;
         }
         
         /**
          * Open the specific site
          */
         public void open() {
-            this.open = true;
+            open = true;
         }
         
         /**
@@ -114,11 +139,11 @@ public class Percolation {
          * @return the value of the open variable in this data structure
          */
         public boolean isOpen() {
-            return this.open;
+            return open;
         }
         
         public int getIndex() {
-            return this.index;
+            return index;
         }
         
         public void setIndex(int index) {
