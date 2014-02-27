@@ -65,6 +65,7 @@ public class Percolation {
      */
     public boolean isFull(final int i, final int j) throws IndexOutOfBoundsException {
         validateArgs(i,j);
+        //TODO Fix this, because it's broken
         return !grid[i-1][j-1].isOpen();
     }
     

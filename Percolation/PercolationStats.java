@@ -27,8 +27,8 @@ public class PercolationStats {
             while(!p.percolates()) {
                 //TODO FIX THIS BECAUSE IT'S AWFUL
                 while(true) {
-                    rand1 = (int)Math.ceil(Math.random() * (N-1)) + 1;
-                    rand2 = (int)Math.ceil(Math.random() * (N-1)) + 1;
+                    rand1 = StdRandom.uniform(1, N);
+                    rand2 = StdRandom.uniform(1, N);
 
                     if(p.isFull(rand1, rand2)) {
                         p.open(rand1, rand2);
@@ -51,8 +51,7 @@ public class PercolationStats {
      * @return 
      */
     public double mean() {
-        int sum = sum(percAfterOpens);
-        return (double)sum/(double)percAfterOpens.length;
+        return StdStats.mean(percAfterOpens);
     }
     
     /**
@@ -60,28 +59,7 @@ public class PercolationStats {
      * @return 
      */
     public double stddev() {
-        double mean = mean();
-        double[] sqDiffArr = new double[percAfterOpens.length];
-        for(int i = 0; i < percAfterOpens.length; i++) {
-            sqDiffArr[i] = Math.pow((double)percAfterOpens[i] - mean, 2);
-        }
-        return Math.sqrt(sum(sqDiffArr)/(sqDiffArr.length-1));
-    }
-    
-    private int sum(final int[] a) {
-        int s = 0;
-        for(int i = 0; i < a.length; i++) {
-            s += a[i];
-        }
-        return s;
-    }
-    
-    private double sum(final double[] a) {
-        double s = 0;
-        for(int i = 0; i < a.length; i++) {
-           s += a[i]; 
-        }
-        return s;
+        return StdStats.stddev(percAfterOpens);
     }
     
     /**
