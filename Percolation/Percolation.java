@@ -40,10 +40,31 @@ public class Percolation {
     public void open(final int i, final int j) throws IndexOutOfBoundsException {
         validateArgs(i,j);
         grid[i-1][j-1].open();
+        //TODO This is broken, please fix it.
         union(i-1, j-1, i-2, j-2);
         union(i-1, j-1, i-2, j);
         union(i-1, j-1, i, j-2);
         union(i-1, j-1, i, j);
+    }
+    
+    public boolean[][] getGrid() {
+        boolean[][] printableGrid = new boolean[size][size];
+        for(int i = 0; i < size; i++) {
+            for(int j = 0; j < size; j++) {
+                printableGrid[i][j] = grid[i][j].isOpen();
+            }
+        }
+        return printableGrid;
+    }
+    
+    public int[][] seeConnections() {
+        int[][] connectGrid = new int[size][size];
+        for(int i = 0; i < size; i++) {
+            for(int j = 0; j < size; j++) {
+                connectGrid[i][j] = grid[i][j].getIndex();
+            }
+        }
+        return connectGrid;
     }
     
     /**
@@ -80,12 +101,12 @@ public class Percolation {
     private void validateArgs(final int i, final int j) throws IndexOutOfBoundsException {
         if(0 >= i) {
             throw new IndexOutOfBoundsException("First argument (" + i + ") is less than 1.");
-        } else if(i >= this.size) {
+        } else if(i > this.size) {
             throw new IndexOutOfBoundsException("First argument (" + i + ") is larger than the "
                     + "given size.");
         } else if(0 >= j) {
             throw new IndexOutOfBoundsException("Second argument (" + j + ") is less than 1.");
-        } else if(j >= this.size) {
+        } else if(j > this.size) {
             throw new IndexOutOfBoundsException("Second argument (" + j + ") is larger than the "
                     + "given size.");
         }
@@ -94,6 +115,9 @@ public class Percolation {
     private void union(final int i, final int j, final int k, final int l) {
         try {
             validateArgs(k, l);
+            if (grid[k][l].isOpen()) {
+                unionSites(grid[i][j], grid[k][l]);
+            }
         } catch(IndexOutOfBoundsException ex) {
             if(k < 1) {
                 unionSites(grid[i][j], top);
@@ -102,10 +126,6 @@ public class Percolation {
             } else {
                 //TODO Print that this is on a side
             }
-            return;
-        }
-        if (grid[k][l].isOpen()) {
-            unionSites(grid[i][j], grid[k][l]);
         }
     }
     
@@ -122,7 +142,7 @@ public class Percolation {
         }
     }
     
-    private class Site {
+    public class Site {
         private boolean open;
         private int index;
         

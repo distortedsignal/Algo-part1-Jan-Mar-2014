@@ -27,8 +27,8 @@ public class PercolationStats {
             while(!p.percolates()) {
                 //TODO FIX THIS BECAUSE IT'S AWFUL
                 while(true) {
-                    rand1 = StdRandom.uniform(1, N);
-                    rand2 = StdRandom.uniform(1, N);
+                    rand1 = StdRandom.uniform(1, N + 1);
+                    rand2 = StdRandom.uniform(1, N + 1);
 
                     if(p.isFull(rand1, rand2)) {
                         p.open(rand1, rand2);
