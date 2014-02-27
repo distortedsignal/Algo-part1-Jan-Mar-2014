@@ -1,6 +1,7 @@
 Memory model:
+
 | Type | Bytes |
-| :--: | :---: |
+| :---: | :---: |
 | boolean | 1 |
 | byte | 1 |
 | char | 2 |
@@ -14,3 +15,6 @@ Memory model:
 Objects are complicated:
 16 bytes of overhead
 Pad out to multiples of 8
+
+3x + 1 sequence:
+1, 4, 13, 40, 121, 364, ...
