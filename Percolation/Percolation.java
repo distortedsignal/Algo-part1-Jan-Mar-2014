@@ -41,10 +41,10 @@ public class Percolation {
         validateArgs(i,j);
         grid[i-1][j-1].open();
         //TODO This is broken, please fix it.
-        union(i-1, j-1, i-2, j-2);
-        union(i-1, j-1, i-2, j);
-        union(i-1, j-1, i, j-2);
-        union(i-1, j-1, i, j);
+        union(i-1, j-1, i-2, j-1);
+        union(i-1, j-1, i-1, j-2);
+        union(i-1, j-1, i, j-1);
+        union(i-1, j-1, i-1, j);
     }
     
     public boolean[][] getGrid() {
@@ -120,8 +120,10 @@ public class Percolation {
             }
         } catch(IndexOutOfBoundsException ex) {
             if(k < 1) {
+                System.out.println("Connecting to top.");
                 unionSites(grid[i][j], top);
             } else if(k > size) {
+                System.out.println("Connecting to bottom.");
                 unionSites(grid[i][j], bottom);
             } else {
                 //TODO Print that this is on a side

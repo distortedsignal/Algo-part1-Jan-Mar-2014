@@ -22,6 +22,11 @@ public class PercTest {
         printGrid(p.getGrid());
         printGrid(p.seeConnections());
         System.out.println("Percolates? " + p.percolates());
+        p.open(1,2);
+        printGrid(p.getGrid());
+        printGrid(p.seeConnections());
+        System.out.println();
+        System.out.println("Percolates? " + p.percolates());
     }
     
     private static void printGrid(final boolean[][] s) {
